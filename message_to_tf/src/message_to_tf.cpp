@@ -95,7 +95,7 @@ void sendTransform(geometry_msgs::Pose const &pose, const std_msgs::Header& head
   // base_link transform (roll, pitch)
   if (g_publish_roll_pitch) {
     tf.child_frame_id_ = tf::resolve(g_tf_prefix, child_frame_id);
-    tf.setOrigin(position);
+    tf.setOrigin(tf::Vector3(position.x() - 0.07, position.y(), position.z()));
     tf.setRotation(tf::createQuaternionFromRPY(roll, pitch, yaw));
     addTransform(transforms, tf);
   }
@@ -207,8 +207,8 @@ void multiCallback(topic_tools::ShapeShifter const &input) {
 int main(int argc, char** argv) {
   ros::init(argc, argv, "message_to_tf");
 
-  g_footprint_frame_id = "base_footprint";
-  g_stabilized_frame_id = "base_stabilized";
+  // g_footprint_frame_id = "base_footprint";
+  // g_stabilized_frame_id = "base_stabilized";
   // g_position_frame_id = "base_position";
   // g_child_frame_id = "base_link";
 
